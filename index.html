@@ -138,7 +138,19 @@
         // Create a working document
         var canvas = document.createElement("canvas");
 
-        var engine = new BABYLON.Engine(canvas, true);
+        var engine = null;
+        var useWebGL = !true;
+        createEngine = async function () {
+            if (useWebGL){
+                engine = new BABYLON.Engine(canvas, true);
+            }
+            else{
+                engine = new BABYLON.WebGPUEngine(canvas);
+                await engine.initAsync();
+            }
+        }
+
+        createEngine();
 
         var scene0 = createScene(1, 0, 0);
         var camera0 = new BABYLON.ArcRotateCamera("Camera0", 0, 0.8, 10, new BABYLON.Vector3.Zero(), scene0);
