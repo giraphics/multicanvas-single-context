@@ -136,15 +136,23 @@
     
     <script>
         // Create a working document
-        var canvas = document.createElement("canvas");
-
+ 
         var engine = null;
-        var useWebGL = !true;
+        var useWebGL = true;
+
         createEngine = async function () {
-            if (useWebGL){
+           //const webgpuSupported = await BABYLON.WebGPUEngine.IsSupportedAsync;
+           // if (!useWebGL && !webgpuSupported) {
+           //   console.log('WebGPU is not supported, fallback to WebGL')
+           //   useWebGL = true; // force WebGL
+           // } 
+
+           // It seems there is a canvas needs to be created in order to init the engine atleast
+           var canvas = document.createElement("canvas");
+           if (useWebGL) {
                 engine = new BABYLON.Engine(canvas, true);
             }
-            else{
+            else {
                 engine = new BABYLON.WebGPUEngine(canvas);
                 await engine.initAsync();
             }
@@ -198,7 +206,7 @@
         registerListner("mousedown", canvas2, camera2, scene2);
         registerListner("mousedown", canvas3, camera3, scene3);
 
-        engine.runRenderLoop(function() {            
+        let callback = function () {
             if (engine.activeView.target === canvas0) {
                 scene0.render();
             }
@@ -211,7 +219,9 @@
             else if (engine.activeView.target === canvas3) {
                 scene3.render();
             }
-        });
+        }
+
+        engine.runRenderLoop(callback);
     </script>
 
 </body>
