@@ -163,8 +163,8 @@
 
         var currentScene = null;
 
-        var registerLister = function (event, canvas, camera, scene) {
-            canvas.addEventListener("mousedown", function(e)
+        var registerListner = function (event, canvas, camera, scene) {
+            canvas.addEventListener(event, function(e)
             {
                 // Set the default canvas to use for events
                 engine.inputElement = canvas;
@@ -181,72 +181,10 @@
             });
         }
 
-        // registerLister("mousedown", canvas0, camera0, scene0);
-        // registerLister("mousedown", canvas1, camera1, scene1);
-        // registerLister("mousedown", canvas2, camera2, scene2);
-        // registerLister("mousedown", canvas3, camera3, scene3);
-
-        canvas0.addEventListener("mousedown", function(e)
-        {
-            // Set the default canvas to use for events
-            engine.inputElement = canvas0;
-
-            if (currentScene){
-                currentScene.detachControl();
-            }
-
-            currentScene = scene0;
-            currentScene.attachControl();
-
-            // This attaches the camera to the canvas
-            camera0.attachControl(canvas0, true);
-        });
-
-        canvas1.addEventListener("mousedown", function(e)
-        {
-            // Set the default canvas to use for events
-            engine.inputElement = canvas1;
-
-            if (currentScene){
-                currentScene.detachControl();
-            }
-
-            currentScene = scene1;
-            currentScene.attachControl();
-
-            // This attaches the camera to the canvas
-            camera1.attachControl(canvas1, true);
-        });
-
-        canvas2.addEventListener("mousedown", function(e)
-        {
-            // Set the default canvas to use for events
-            engine.inputElement = canvas2;
-            if (currentScene){
-                currentScene.detachControl();
-            }
-
-            currentScene = scene2;
-            currentScene.attachControl();
-
-            // This attaches the camera to the canvas
-            camera2.attachControl(canvas2, true);
-        });
-        
-        canvas3.addEventListener("mousedown", function(e)
-        {
-            // Set the default canvas to use for events
-            engine.inputElement = canvas3;
-            if (currentScene){
-                currentScene.detachControl();
-            }
-
-            currentScene = scene3;
-            currentScene.attachControl();
-
-            // This attaches the camera to the canvas
-            camera3.attachControl(canvas3, true);
-        });
+        registerListner("mousedown", canvas0, camera0, scene0);
+        registerListner("mousedown", canvas1, camera1, scene1);
+        registerListner("mousedown", canvas2, camera2, scene2);
+        registerListner("mousedown", canvas3, camera3, scene3);
 
         engine.runRenderLoop(function() {            
             if (engine.activeView.target === canvas0) {
